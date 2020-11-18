@@ -26,7 +26,7 @@ void test_checksum(){
   unsigned long long int limit = UINT_MAX;
   unsigned int rand_num = rand() % (limit+1);
   // Call checksum and validate the result
-  unsigned short int res = checksum(rand_num);
+  unsigned int res = checksum(rand_num);
   std::cout << "The input number is " << rand_num << std::endl;
   std::cout << "Function checksum returns " << res << "." << std::endl;
 }
