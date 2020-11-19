@@ -1,5 +1,4 @@
 #include <iostream>
-#include <bitset>
 #include <ctime>
  // Configure project's include path to
 // also contain ${workspaceFolder}/include
@@ -18,13 +17,13 @@ void runlength_encode(ac_channel<ac_int<4,false> > &in, ac_channel<ac_int<4,fals
       // Check for same consecutive values
       check_num = in.read();
       if (new_num==check_num){
-        // If value remains the same, increase count
+        // If value remained the same, increase count
         count++;
       } else {
-        // If value changes, write results to output
+        // If value changed, write results to output
         out.write(new_num);
         out.write(count);
-        // Reset state for new value
+        // Reset state for the new value
         new_num = check_num;
         count = 1;
       }
@@ -54,7 +53,7 @@ void test_runlength_encode(){
   // Call runlength_encode and check its results
   runlength_encode(in, out);
   std::cout << "Output: ";
-  while(out.available(2)){
+  while (out.available(2)){
     std::cout << out.read() << " ";
     std::cout << out.read() << " | ";
   }
