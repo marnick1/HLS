@@ -2,28 +2,24 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "mc_scverify.h"
+//#include "mc_scverify.h"
 
 static const int N = 5;
 static const int M = 3;
 
 static const int RUNS = 10;
 
-/*
 #pragma hls_design top
+//void CCS_BLOCK(compute_row_sum)(short a[N][M], short row_sum[N]){
 void compute_row_sum(short a[N][M], short row_sum[N]){
-  ROWS:for (int i=0; i < N; i++){
-    row_sum[i] = 0;
-    COLS:for (int j=0; j < M; j++){
-      row_sum[i] += a[i][j];
-    }
-  }
-}
-*/
-
-#pragma hls_design top
-void CCS_BLOCK(compute_row_sum)
-(short a[N][M], short row_sum[N]){
+  // // Solution 1
+  // ROWS:for (int i=0; i < N; i++){
+  //   row_sum[i] = 0;
+  //   COLS:for (int j=0; j < M; j++){
+  //     row_sum[i] += a[i][j];
+  //   }
+  // }
+  // Solution 2
   short sum;
   ROWS:for (int i=0; i<N; i++){
     sum = 0;
@@ -32,30 +28,25 @@ void CCS_BLOCK(compute_row_sum)
     }
     row_sum[i] = sum;
   }
+  // // Solution 3
+  // short sum = 0;
+  //   int i = 0;
+  //   int j = 0;
+  //   Merged: while((i*M+j)<(N*M)){
+  //     std::cout << i << " " << j << std::endl;
+  //     sum += a[i][j];
+  //     j++;
+  //     if (j==M){
+  //       row_sum[i] = sum;
+  //       sum = 0;
+  //       j = 0;
+  //       i++;
+  //     }
+  //   }
+  // }
 }
 
-/*
-#pragma hls_design top
-void CCS_BLOCK(compute_row_sum)(short a[N][M], short row_sum[N]){
-  short sum = 0;
-  int i = 0;
-  int j = 0;
-  Merged: while((i*M+j)<(N*M)){
-    std::cout << i << " " << j << std::endl;
-    sum += a[i][j];
-    j++;
-    if (j==M){
-      row_sum[i] = sum;
-      sum = 0;
-      j = 0;
-      i++;
-    }
-  }
-}
-*/
-
-
-
+//CCS_MAIN(int argc, char* argv[]){
 int main(){
   short x[N][M];
   short row_sum_of_x[N];
@@ -88,6 +79,4 @@ int main(){
     }
     std::cout << std::endl << std::endl;
   }
-  
-  return 0;
 }
